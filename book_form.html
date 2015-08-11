@@ -1,0 +1,292 @@
+<html>
+<head>
+<title>Final - Book HTML Form</title>
+<script type="text/javascript">
+
+// Initialize any global variables to use in processing form data
+
+
+
+//-----------------------------------------------------------------------------
+// 
+// Name:  validateBook
+//
+// Parameters:   None
+// 
+// Returns:      0 - successfully passed all validation
+//
+//----------------------------------------------------------------------------
+    function validateBook() {
+        //
+        // Check all mandatory form fields to make sure they are not empty.
+        // If the field is empty then return (exit) from the function to put up an alert
+        //
+
+        // 1) Create variables to capture the values for all form field you are using
+
+        var title = document.AddBook.btitle.value;
+        var firstname = document.AddBook.firstname.value;
+        var middlename = document.AddBook.middlename.value;
+        var lastname = document.AddBook.lastname.value;
+        var fiction = document.AddBook.fiction.value;
+        var language = document.AddBook.language.value;
+        var averageRating = document.AddBook.averageRating.value;
+        var bestsellerRank = document.AddBook.bestsellerRank.value;
+        var day = document.AddBook.day.value;
+        var month = document.AddBook.month.value;
+        var year = document.AddBook.year.value;
+        var addressline1 = document.AddBook.addressline1.value;
+        var addressline2 = document.AddBook.addressline2.value;
+        var city = document.AddBook.city.value;
+        var state = document.AddBook.state.value;
+        var zip = document.AddBook.zip.value;
+        var ziplast4 = document.AddBook.ziplast4.value;
+
+        // 2) Check that all mandatory fields have values.
+        // exit the function if empty.
+
+        if (fieldEmpty("Title", title)) { alert("empty title"); return; }
+        if (fieldEmpty("author's first name", firstname)) { return; }
+        if (fieldEmpty("author's last name", lastname)) { return; }
+        if (fieldEmpty("average rating", averageRating)) { return; }
+        if (fieldEmpty("best seller rank", bestsellerRank)) { return; }
+        if (fieldEmpty("day", day)) { return; }
+        if (fieldEmpty("year", year)) { return; }
+        if (fieldEmpty("street address", addressline1)) { return; }
+        if (fieldEmpty("city", city)) { return; }
+        if (fieldEmpty("state", state)) { return; }
+        if (fieldEmpty("zip code", zip)) { return; }
+
+        // 3) As needed, start validating fields if they have values that need to be verified
+
+
+        // NOTE:  use the fieldAlphanumberic function and alert if needed 
+        //if ( fieldAlphanumeric ( "License Number", licenseNumber ) ) { return; }
+
+
+        // Validate values in other fields as needed ... use built in functions like isNaN and 
+        // others as needed
+
+        if (isNaN(zip)) {
+            alert("Enter a valid zip code");
+            return;
+        }
+
+        // Average rating must be a number (floats allowed) between 1 and 5
+        if (isNaN(averageRating) || averageRating > 5 || averageRating < 1) {
+            alert("Average rating must be a value between 1 and 5");
+            return;
+        }
+
+
+        if (isNaN(bestsellerRank)) {
+            alert("Please enter a valid number for the best seller rank");
+            return;
+        }
+
+        // Published day must be a number, 1 to 31
+        if (isNaN(day || day < 1 || day > 31)) {
+            alert("Please enter a valid number for the day published");
+            return;
+        }
+
+        // Published year must be a positive number before 2500
+        if (isNaN(year) || year < 0 || year > 2500) {
+            alert("Please enter a valid year");
+            return;
+        }
+
+        // 4) S U C C E S S
+        //
+        // if everything works and it gets this far, all validations have passed, just present an alert message
+        alert("Book info is Valid");
+
+        return 0;  /* success */
+
+    }
+
+
+
+//-----------------------------------------------------------------------------
+// 
+// Name:  fieldAlphanumeric
+//
+// Description - Checks to see if a field value is only AlphaNumeric, only 
+//               letters (A-Z and a-z) and digits (0-9) are allowed).  
+//
+//               Sample Valid Values   - 12A, abc12, and 9a1b12c 
+//
+//               Sample Invalid Value  - 83$A% (has a $ and % character)
+// 
+// Parameters:   fieldName - The Field Name Label on the HTML form
+//               fieldValue - The actual value within the field being tested
+// 
+// Returns:      1 - fieldValue contains non alphanumeric characters
+//               0 - fieldValue contains alphanumeric characters
+//
+//----------------------------------------------------------------------------
+
+    function fieldAlphanumeric(fieldName, fieldValue) {
+
+        var msg = " must contain only letters and numbers";
+
+        // these is a regular expression test (we'll cover this soon)
+
+        if (/[^A-Za-z0-9]/.test(fieldValue)) {
+
+            alert(fieldName + (msg));
+            return 1; // fails, contains non alphanumberic characters  
+        }
+        else {
+            return 0; // passes, contains only alphanumeric characters    
+        }
+    }
+
+
+//-----------------------------------------------------------------------------
+// 
+// Name:  fieldEmpty
+//
+// Description - Determines if a given fieldValue is empty 
+//
+// Parameters:   fieldName - The Field Name Label on the HTML form
+//               fieldValue - The actual value within the field being tested
+// 
+// Returns:      1 - fieldValue is empty
+//               0 - fieldValue 
+//
+//----------------------------------------------------------------------------
+
+    function fieldEmpty(fieldName, fieldValue) {
+
+        var msg = " is a required field";
+
+        if (fieldValue == "") {
+            alert(fieldName + (msg));
+            return 1;
+        }
+        else {
+            return 0;
+        }
+
+    }
+
+
+</script>
+
+<!--Some CSS styling to center align, HTML5 compliant-->
+<style>    p {
+        text-align: center;
+    }
+</style>
+
+</head>
+<body>
+<h1>Book Form, Add (Final)</h1>
+
+
+
+<form name="AddBook">
+
+<p>
+    <span style="color:red;">* Required Fields</span>
+</p>
+
+<table>
+
+
+<tr>
+	<td><strong>Title:</strong></td>
+	<td><input type="text" name="btitle" /><span style="color:red;">*</span></td>
+</tr>
+		
+<tr>
+	<td><strong>Author:</strong></td>
+	<td>
+	<table>
+		<tr>
+		<td>First:</td>
+		<td><input type="text" name="firstname"><span style="color:red;">*</span></td>
+		</tr>
+		<tr>
+		<td>Middle:</td>
+		<td><input type="text" name="middlename"></td>
+		</tr>
+		<tr>
+		<td>Last:</td>
+		<td><input type="text" name="lastname"><span style="color:red;">*</span></td>
+		</tr>
+	</table>
+	</td>
+</tr>
+
+<tr>
+	<td><strong>Type:</strong></td>
+	<td><input type="radio" name="fiction" value="True" checked="checked">Fiction<br>
+	<input type="radio" name="fiction" value="False">Non-Fiction</input>
+	</td>
+</tr>
+
+<tr>
+	<td><strong>Language:</strong></td>
+	<td><select name="language"><option value="English">English</option><option value="Spanish">Spanish</option><option value="French">French</option><option value="Other">Other</option></select></td>
+</tr>
+
+<tr>
+	<td><strong>Average Rating:</strong></td>
+	<td><input type="text" name="averageRating" /><span style="color:red;">*</span></td>
+</tr>
+
+<tr>
+	<td><strong>Bestseller Rank:</strong></td>
+	<td><input type="text" name="bestsellerRank" /><span style="color:red;">*</span></td>
+</tr>
+
+<tr><td><strong>Date Published:</strong>(mm/dd/yyyy)</td>
+    <td><table><tr><td><select name="month"><option value="1">January</option><option value="2">February</option><option value="3">March</option><option value="4" selected>April</option><option value="5">May</option><option value="6">June</option><option value="7">July</option><option value="8">August</option><option value="9">September</option><option value="10">October</option><option value="11">November</option><option value="12">December</option></select>/<input type="text" name="day" />/<input type="text" name="year" /><span style="color:red;">*</span></td></tr></table></td>
+</tr>
+<tr>
+	<td><strong>Publisher's Address:</strong></td>
+	<td>
+	<table>
+		<tr>
+		<td>Line 1:</td>
+		<td><input type="text" name="addressline1" /><span style="color:red;">*</span></td>
+		</tr>
+		<tr>
+		<td>Line 2:</td>
+		<td><input type="text" name="addressline2" /></td>
+		</tr>
+		<tr>
+		<td>City:</td>
+		<td><input type="text" name="city" /><span style="color:red;">*</span></td>
+		</tr>
+		<tr>
+		<td>State:</td>
+		<td><input type="text" name="state" /><span style="color:red;">*</span></td>
+		</tr>
+		<tr>
+		<td>Zip Code:</td>
+		<td><input type="text" name="zip" /><span style="color:red;">*</span>-<input type="text" name="ziplast4" /></td>
+		</tr>
+	</table>
+	</td>
+</tr>
+
+
+
+
+<tr>
+	<td> </td>
+	<td><input type="button" value="Validate" onclick="validateBook();" /> <input type="button" value="CE" onclick="document.AddBook.reset();" /></td>
+
+</tr>
+<tr>
+</table>
+</form>
+</body>
+</html>
+
+ 
+
+ 
